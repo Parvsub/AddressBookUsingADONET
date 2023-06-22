@@ -38,5 +38,28 @@ namespace AddressBookUsingADONET
                 connection.Close();
             }
         }
+
+        public void UpdateContact(Contact contact)
+        {
+            try
+            {
+                connection.Open();
+                string updateQuery = "UPDATE Contact SET FirstName = @firstname, LastName = @lastName, Email = @Email, City = @city, State = @state WHERE Contactid = @contactid";
+                SqlCommand updateCommand = new SqlCommand(updateQuery, connection);
+                updateCommand.Parameters.AddWithValue("@ContactId", contact.ContactId);
+                updateCommand.Parameters.AddWithValue("@firstName", contact.FirstName);
+                updateCommand.Parameters.AddWithValue("@lastname", contact.LastName);
+                updateCommand.Parameters.AddWithValue("@email", contact.Email);
+                updateCommand.Parameters.AddWithValue("@city", contact.City);
+                updateCommand.Parameters.AddWithValue("@state", contact.State);
+                updateCommand.ExecuteNonQuery();
+
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
     }
 }
