@@ -61,5 +61,32 @@ namespace AddressBookUsingADONET
             }
         }
 
+        public Contact GetContact(int Contactid)
+        {
+            try
+            {
+                connection.Open();
+                string selectQuery = "select * from contact where contactid =@contactid";
+                SqlCommand selectCommand = new SqlCommand(selectQuery, connection);
+                selectCommand.Parameters.AddWithValue("@contactid", Contactid);
+                SqlDataReader reader = selectCommand.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    int contactid = (int)reader["contactid"];
+                    string firstname = (string)reader["FirstName"];
+                    string Lastname = (string)reader["LastName"];
+                    string Email = (string)reader["Email"];
+                    string city = (string)reader["city"];
+                    string state = (string)reader["state"];
+                    return new Contact(contactid, firstname, Lastname, Email, city, state);
+                }
+                return null;
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
     }
 }
