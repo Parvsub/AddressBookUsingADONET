@@ -88,5 +88,21 @@ namespace AddressBookUsingADONET
                 connection.Close();
             }
         }
+
+        public void DeleteContact(int contactid)
+        {
+            try
+            {
+                connection.Open();
+                string deleteQuery = "Delete from Contact where contactid =@contactid";
+                SqlCommand deleteCommand = new SqlCommand(deleteQuery, connection);
+                deleteCommand.Parameters.AddWithValue("@contactid", contactid);
+                deleteCommand.ExecuteNonQuery();
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
     }
 }

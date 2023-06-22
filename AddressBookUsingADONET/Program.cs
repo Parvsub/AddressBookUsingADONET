@@ -35,6 +35,10 @@
             {
                 Console.WriteLine("Employee not found.");
             }
+
+            //Delete the contact
+            addressBook.DeleteContact(1);
+            Console.WriteLine("Contact deleted Successfully");
         }
     }
 }
